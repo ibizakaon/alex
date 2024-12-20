@@ -1,30 +1,186 @@
-<!-- index.html -->
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
-    <link rel="stylesheet" href="styles.css"> <!-- link to external stylesheet -->
+    <title>Meus Desenhos</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Menu horizontal */
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            transition: background 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #00bcd4;
+        }
+
+        /* Estilo do drop-down */
+        nav ul li ul {
+            display: none;
+            position: absolute;
+            background-color: #444;
+            list-style: none;
+            top: 100%;
+            left: 0;
+            min-width: 200px;
+            z-index: 1000;
+            padding: 0;
+        }
+
+        nav ul li ul li a {
+            padding: 10px 15px;
+            border-bottom: 1px solid #555;
+        }
+
+        nav ul li ul li a:hover {
+            background-color: #00bcd4;
+        }
+
+        nav ul li.open > ul {
+            display: block;
+        }
+
+        /* Conteúdo principal */
+        main {
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #444;
+            color: white;
+        }
+
+        /* Galeria de desenhos */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- Menu horizontal com drop-down -->
+    <nav>
+        <ul>
+            <li class="menu-item">
+                <a href="#personagens" class="menu-toggle">Personagens</a>
+                <ul>
+                    <li><a href="#personagem1">Personagem 1</a></li>
+                    <li><a href="#personagem2">Personagem 2</a></li>
+                    <li><a href="#personagem3">Personagem 3</a></li>
+                    <li><a href="#personagem4">Personagem 4</a></li>
+                </ul>
+            </li>
+            <li><a href="#sobre">Sobre Mim</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+    </nav>
+
+    <!-- Conteúdo principal -->
     <main>
-        <h1>Welcome to My Website</h1>
-        <p>This is a sample paragraph.</p>
+        <header>
+            <h1>Meus Desenhos</h1>
+            <p>Bem-vindo(a) ao meu portfólio de desenhos!</p>
+        </header>
+
+        <!-- Seções de personagens -->
+        <section id="personagem1">
+            <h2>Personagem 1</h2>
+            <div class="gallery">
+                <img src="https://via.placeholder.com/200?text=Desenho+1" alt="Desenho 1 da Personagem 1">
+                <img src="https://via.placeholder.com/200?text=Desenho+2" alt="Desenho 2 da Personagem 1">
+            </div>
+        </section>
+
+        <section id="personagem2">
+            <h2>Personagem 2</h2>
+            <div class="gallery">
+                <img src="https://via.placeholder.com/200?text=Desenho+1" alt="Desenho 1 da Personagem 2">
+                <img src="https://via.placeholder.com/200?text=Desenho+2" alt="Desenho 2 da Personagem 2">
+            </div>
+        </section>
+
+        <section id="personagem3">
+            <h2>Personagem 3</h2>
+            <div class="gallery">
+                <img src="https://via.placeholder.com/200?text=Desenho+1" alt="Desenho 1 da Personagem 3">
+                <img src="https://via.placeholder.com/200?text=Desenho+2" alt="Desenho 2 da Personagem 3">
+            </div>
+        </section>
+
+        <section id="personagem4">
+            <h2>Personagem 4</h2>
+            <div class="gallery">
+                <img src="https://via.placeholder.com/200?text=Desenho+1" alt="Desenho 1 da Personagem 4">
+                <img src="https://via.placeholder.com/200?text=Desenho+2" alt="Desenho 2 da Personagem 4">
+            </div>
+        </section>
+
+        <!-- Rodapé -->
+        <footer>
+            <p>&copy; 2024 Meus Desenhos. Todos os direitos reservados.</p>
+        </footer>
     </main>
-    <footer>
-        <p>&copy; 2024 My Website</p>
-    </footer>
-    <script src="script.js"></script> <!-- link to external script -->
+
+    <!-- JavaScript para abrir e fechar menus -->
+    <script>
+        document.querySelectorAll('.menu-toggle').forEach(menuToggle => {
+            menuToggle.addEventListener('click', function(event) {
+                event.preventDefault();
+                const parent = this.parentElement;
+                parent.classList.toggle('open');
+            });
+        });
+    </script>
 </body>
 </html>

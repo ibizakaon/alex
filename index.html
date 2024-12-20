@@ -24,6 +24,7 @@
             margin: 0;
             padding: 0;
             display: flex;
+            flex-wrap: wrap;
         }
 
         nav ul li {
@@ -36,6 +37,7 @@
             text-decoration: none;
             padding: 15px 20px;
             transition: background 0.3s;
+            cursor: pointer;
         }
 
         nav ul li a:hover {
@@ -80,7 +82,7 @@
             color: white;
         }
 
-        /* Galeria de desenhos */
+        /* Galeria de desenhos (inicialmente oculta) */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -92,10 +94,39 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
+            cursor: pointer;
         }
 
         .gallery img:hover {
             transform: scale(1.05);
+        }
+
+        /* Estilos para a imagem maximizada */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
         }
 
         /* Rodapé */
@@ -106,6 +137,37 @@
             padding: 10px 0;
             margin-top: 20px;
         }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li ul {
+                position: static;
+                display: none;
+                background-color: #444;
+            }
+
+            nav ul li.open > ul {
+                display: block;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav ul li a {
+                padding: 12px 15px;
+            }
+
+            .gallery img {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -113,12 +175,12 @@
     <nav>
         <ul>
             <li class="menu-item">
-                <a href="#personagens" class="menu-toggle">Personagens</a>
+                <a href="javascript:void(0);" class="menu-toggle">Personagens</a>
                 <ul>
-                    <li><a href="#personagem1">Personagem 1</a></li>
-                    <li><a href="#personagem2">Personagem 2</a></li>
-                    <li><a href="#personagem3">Personagem 3</a></li>
-                    <li><a href="#personagem4">Personagem 4</a></li>
+                    <li><a href="javascript:void(0);" class="personagem-link" data-personagem="1">Personagem 1</a></li>
+                    <li><a href="javascript:void(0);" class="personagem-link" data-personagem="2">Personagem 2</a></li>
+                    <li><a href="javascript:void(0);" class="personagem-link" data-personagem="3">Personagem 3</a></li>
+                    <li><a href="javascript:void(0);" class="personagem-link" data-personagem="4">Personagem 4</a></li>
                 </ul>
             </li>
             <li><a href="#sobre">Sobre Mim</a></li>
@@ -133,36 +195,40 @@
             <p>Bem-vindo(a) ao meu portfólio de desenhos!</p>
         </header>
 
-        <!-- Seções de personagens -->
-        <section id="personagem1">
+        <!-- Galerias de desenhos das personagens (inicialmente ocultas) -->
+        <section id="personagem1" class="personagem-gallery" style="display: none;">
             <h2>Personagem 1</h2>
             <div class="gallery">
-                <img src="https://via.placeholder.com/200?text=Desenho+1" alt="Desenho 1 da Personagem 1">
-                <img src="https://via.placeholder.com/200?text=Desenho+2" alt="Desenho 2 da Personagem 1">
+                <img src="https://via.placeholder.com/400x300/ffb6c1/000000?text=Desenho+1" alt="Desenho 1 da Personagem 1" class="gallery-img">
+                <img src="https://via.placeholder.com/400x300/ffcc00/000000?text=Desenho+2" alt="Desenho 2 da Personagem 1" class="gallery-img">
+                <img src="https://via.placeholder.com/400x300/7fffd4/000000?text=Desenho+3" alt="Desenho 3 da Personagem 1" class="gallery-img">
             </div>
         </section>
 
-        <section id="personagem2">
+        <section id="personagem2" class="personagem-gallery" style="display: none;">
             <h2>Personagem 2</h2>
             <div class="gallery">
-                <img src="https://via.placeholder.com/200?text=Desenho+1" alt="Desenho 1 da Personagem 2">
-                <img src="https://via.placeholder.com/200?text=Desenho+2" alt="Desenho 2 da Personagem 2">
+                <img src="https://via.placeholder.com/400x300/ff6347/000000?text=Desenho+1" alt="Desenho 1 da Personagem 2" class="gallery-img">
+                <img src="https://via.placeholder.com/400x300/32cd32/000000?text=Desenho+2" alt="Desenho 2 da Personagem 2" class="gallery-img">
+                <img src="https://via.placeholder.com/400x300/4682b4/000000?text=Desenho+3" alt="Desenho 3 da Personagem 2" class="gallery-img">
             </div>
         </section>
 
-        <section id="personagem3">
+        <section id="personagem3" class="personagem-gallery" style="display: none;">
             <h2>Personagem 3</h2>
             <div class="gallery">
-                <img src="https://via.placeholder.com/200?text=Desenho+1" alt="Desenho 1 da Personagem 3">
-                <img src="https://via.placeholder.com/200?text=Desenho+2" alt="Desenho 2 da Personagem 3">
+                <img src="https://via.placeholder.com/400x300/ff4500/000000?text=Desenho+1" alt="Desenho 1 da Personagem 3" class="gallery-img">
+                <img src="https://via.placeholder.com/400x300/6a5acd/000000?text=Desenho+2" alt="Desenho 2 da Personagem 3" class="gallery-img">
+                <img src="https://via.placeholder.com/400x300/7fff00/000000?text=Desenho+3" alt="Desenho 3 da Personagem 3" class="gallery-img">
             </div>
         </section>
 
-        <section id="personagem4">
+        <section id="personagem4" class="personagem-gallery" style="display: none;">
             <h2>Personagem 4</h2>
             <div class="gallery">
-                <img src="https://via.placeholder.com/200?text=Desenho+1" alt="Desenho 1 da Personagem 4">
-                <img src="https://via.placeholder.com/200?text=Desenho+2" alt="Desenho 2 da Personagem 4">
+                <img src="https://via.placeholder.com/400x300/dda0dd/000000?text=Desenho+1" alt="Desenho 1 da Personagem 4" class="gallery-img">
+                <img src="https://via.placeholder.com/400x300/00bfff/000000?text=Desenho+2" alt="Desenho 2 da Personagem 4" class="gallery-img">
+                <img src="https://via.placeholder.com/400x300/ff1493/000000?text=Desenho+3" alt="Desenho 3 da Personagem 4" class="gallery-img">
             </div>
         </section>
 
@@ -172,14 +238,64 @@
         </footer>
     </main>
 
-    <!-- JavaScript para abrir e fechar menus -->
+    <!-- Modal de imagem para visualização maximizada -->
+    <div id="imageModal" class="modal">
+        <span class="close-btn">&times;</span>
+        <img id="modalImage" src="" alt="Imagem Maximizada">
+    </div>
+
+    <!-- JavaScript para abrir e fechar menus e mostrar/ocultar as galerias -->
     <script>
+        // Função para abrir e fechar os menus drop-down
         document.querySelectorAll('.menu-toggle').forEach(menuToggle => {
             menuToggle.addEventListener('click', function(event) {
                 event.preventDefault();
                 const parent = this.parentElement;
                 parent.classList.toggle('open');
             });
+        });
+
+        // Função para mostrar a galeria de uma personagem e fechar o menu de personagens
+        document.querySelectorAll('.personagem-link').forEach(link => {
+            link.addEventListener('click', function(event) {
+                const personagemId = this.getAttribute('data-personagem');
+                
+                // Ocultar todas as galerias
+                document.querySelectorAll('.personagem-gallery').forEach(gallery => {
+                    gallery.style.display = 'none';
+                });
+
+                // Mostrar a galeria da personagem selecionada
+                document.getElementById('personagem' + personagemId).style.display = 'block';
+
+                // Fechar o menu de personagens
+                document.querySelector('.menu-item').classList.remove('open');
+            });
+        });
+
+        // Função para maximizar a imagem ao clicar
+        const galleryImages = document.querySelectorAll('.gallery-img');
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeBtn = document.querySelector('.close-btn');
+
+        galleryImages.forEach(img => {
+            img.addEventListener('click', function() {
+                modal.style.display = 'flex';
+                modalImage.src = this.src;
+            });
+        });
+
+        // Fechar o modal ao clicar no botão de fechar
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Fechar o modal ao clicar fora da imagem
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
         });
     </script>
 </body>
